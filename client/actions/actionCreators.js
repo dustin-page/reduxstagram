@@ -8,6 +8,7 @@ export function increment (index) { //index (or postId) is the identifier for wh
 
 //add comment
 export function addComment (postId, author, comment) {
+    console.log("Dispatching add comment");
     return {
         type: 'ADD_COMMENT',
         postId,
