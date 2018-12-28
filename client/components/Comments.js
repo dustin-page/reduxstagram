@@ -9,22 +9,23 @@ const Comments = React.createClass({
                 <p>
                     <strong>{comment.user}</strong>
                     {comment.text}
-                    <button className="remove-comment">&times;</button>
+                    <button className="remove-comment" onClick={this.props.removeComment.bind(null, this.props.params.postId, i)}>&times;</button>
                 </p>
             </div>
         )
     },
 
-    handleSubmit(e){
+    handleSubmit(e) {
         e.preventDefault();
         const { postId } = this.props.params;
 
         const author = this.refs.author.value;
         const comment = this.refs.comment.value;
 
-        console.log(postId, author, comment);
-
+        //Call the actionCreator to dispatch action to the reducer
         this.props.addComment(postId, author, comment);
+        //Clear the form
+        this.refs.commentForm.reset();
     },
 
     render() {
