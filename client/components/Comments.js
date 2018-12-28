@@ -2,10 +2,31 @@ import React from 'react';
 
 const Comments = React.createClass({
 
+    //create a render function when it doesn't make sense to create a separate component
+    renderComment (comment, i) {
+        console.log(comment);
+        return (
+            <div className="comment">
+                <p>
+                    <strong>
+                        {comment.user}
+                    </strong>
+                    {comment.text}
+                    <button className="remove-comment">&times;</button>
+                </p>
+            </div>
+        )
+    },
+
     render() {
         return (
             <div className="comments">
-                I'm a comment!
+                {this.props.postComments.map(this.renderComment)}
+                <form ref="commentForm" className="comment-form">
+                    <input type="text" ref="author" placeholder="author"/>
+                    <input type="text" ref="comment" placeholder="comment"/>
+                    <input type="submit" hidden />
+                </form>
             </div>
         )
     }
