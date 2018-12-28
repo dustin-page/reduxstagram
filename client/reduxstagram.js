@@ -1,6 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+/* Begin Sentry Error tracking software for JS */
+import * as Sentry from '@sentry/browser';
+import ErrorBoundary from './data/ErrorBoundary';
+//Tag the release
+const RELEASE = 'reduxstagram@0.1.0';
+Sentry.init({
+    dsn: "https://fc87c1eb860343baa5614490cf23693f@sentry.io/1361559",
+    release: RELEASE
+});
+/* End Sentry Error tracking software for JS */
+
 //Import CSS
 import css from './styles/style.styl';
 
@@ -16,14 +27,16 @@ import { Provider } from 'react-redux';
 import store, { history } from './store'
 
 const router = (
-    <Provider store={store}>
-        <Router history={history}>
-            <Route path="/" component={App}>
-                <IndexRoute component={PhotoGrid}></IndexRoute>
-                <Route path="/view/:postId" component={Single}></Route>
-            </Route>
-        </Router>
-    </Provider>
+    <ErrorBoundary>
+        <Provider store={store}>
+            <Router history={history}>
+                <Route path="/" component={App}>
+                    <IndexRoute component={PhotoGrid}></IndexRoute>
+                    <Route path="/view/:postId" component={Single}></Route>
+                </Route>
+            </Router>
+        </Provider>
+    </ErrorBoundary>
 )
 
 render(router, document.getElementById('root'));
