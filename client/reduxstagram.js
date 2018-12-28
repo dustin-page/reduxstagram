@@ -3,11 +3,12 @@ import { render } from 'react-dom';
 
 /* Begin Sentry Error tracking software for JS */
 import * as Sentry from '@sentry/browser';
-import ErrorBoundary from './data/ErrorBoundary';
+import ErrorBoundary from './components/ErrorBoundary';
 //Tag the release
 const RELEASE = 'reduxstagram@0.1.0';
+const sentry_url = "https://fc87c1eb860343baa5614490cf23693f@sentry.io/1361559";
 Sentry.init({
-    dsn: "https://fc87c1eb860343baa5614490cf23693f@sentry.io/1361559",
+    dsn: sentry_url,
     release: RELEASE
 });
 /* End Sentry Error tracking software for JS */
