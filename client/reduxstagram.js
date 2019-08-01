@@ -28,16 +28,18 @@ import { Provider } from 'react-redux';
 import store, { history } from './store'
 
 const router = (
-    <ErrorBoundary>
         <Provider store={store}>
             <Router history={history}>
                 <Route path="/" component={App}>
                     <IndexRoute component={PhotoGrid}></IndexRoute>
-                    <Route path="/view/:postId" component={Single}></Route>
+                    <Route path="/view/:postId" render={() => (
+            <ErrorBoundary>
+              <Single />
+            </ErrorBoundary>
+          )}></Route>
                 </Route>
             </Router>
         </Provider>
-    </ErrorBoundary>
 )
 
 render(router, document.getElementById('root'));

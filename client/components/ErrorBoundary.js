@@ -25,7 +25,7 @@ export default class ErrorBoundary extends Component {
           );
       } else {
           //when there's not an error, render children untouched
-          return this.props.children;
+          return <React.Fragment>{React.cloneElement(this.props.children, this.props)}</React.Fragment>
       }
   }
 }

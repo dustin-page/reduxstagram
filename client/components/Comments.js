@@ -1,7 +1,13 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-const Comments = React.createClass({
+class Comments extends Component {
 
+    constructor(props) {
+        super(props)
+
+        this.renderComment = this.renderComment.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
     //create a render function when it doesn't make sense to create a separate component
     renderComment(comment, i) {
         return (
@@ -13,10 +19,11 @@ const Comments = React.createClass({
                 </p>
             </div>
         )
-    },
+    }
 
     handleSubmit(e) {
         e.preventDefault();
+        
         const { postId } = this.props.params;
 
         const author = this.refs.author.value;
@@ -26,9 +33,13 @@ const Comments = React.createClass({
         this.props.addComment(postId, author, comment);
         //Clear the form
         this.refs.commentForm.reset();
-    },
+    }
 
     render() {
+        if (this.props.postComments.length === 5) {
+            // Simulate a JS error
+            throw new Error('I crashed!');
+          }
         return (
             <div className="comments">
 
@@ -42,6 +53,6 @@ const Comments = React.createClass({
             </div>
         )
     }
-});
+}
 
 export default Comments;
